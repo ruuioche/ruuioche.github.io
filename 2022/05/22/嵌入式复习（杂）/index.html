@@ -24,7 +24,7 @@
 <meta property="og:description" content="arm部分 switch语句CASE_0       CMP          R2,#0     CASE_2       CMPNE     R2,#2            CASE_3       CMPNE     R2,#3  表示的意思为  CMP中如果 R2 &#x3D;&#x3D; 0 则执行CMP下的语句（斜接上一条语句）CMPNE判断条件斜接上一条的R2 &#x3D;&amp;#x3">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-22T09:16:45.000Z">
-<meta property="article:modified_time" content="2022-05-22T09:25:04.538Z">
+<meta property="article:modified_time" content="2022-05-22T09:30:23.632Z">
 <meta property="article:author" content="ruuioche">
 <meta property="article:tag" content="复习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -295,7 +295,7 @@
 <p>   void main()<br>   {<br> uchar Recent_Key; &#x2F;&#x2F;最近按键<br> P0&#x3D;0xfe; &#x2F;&#x2F;1111 1110<br> P2&#x3D;0xfe;<br> P1&#x3D;0xff;<br> Recent_Key &#x3D; 0xff;<br> while(1)<br> {<br>   if(Recent_Key!&#x3D;P1)<br>   {<br>     Recnet_Key&#x3D;P1;<br>     Move_LED();<br>     Delay_MS(10);<br>   }<br> }<br>   }</p>
 </li>
 <li><p>按键分组控制LED灯<br> 按下K1递增点亮一只LED，全亮时再按下则再次循环<br> 按下k2点亮上面四只LED  按下k3点亮下面四只LED，K4按下关闭所有LED</p>
-<h2 id="80c51定时器工作模式"><a href="#80c51定时器工作模式" class="headerlink" title="80c51定时器工作模式"></a>80c51定时器工作模式</h2><p>   80c51系列单片机有2个16位的定时器&#x2F;计数器：定时器0（T0），定时器1（T1） 都有定时器或事件计数的功能<br>   T0由两个特殊功能寄存器TH0和TL0构成，T1则由TH1和TL1构成，均是16位加法计数结构<br>   作计数器时，通过引脚T0(P3.4)和T1(P3.5)对外部脉冲信号计数，当输入脉冲信号从1到0的负跳变时，计数器就自动加1，计数的最高频率一般为振荡频率的1&#x2F;24<br>   不论是定时或计数工作，定时器T0或T1都不占用CPU时间，除非定时器（计数器）溢出，才可能中断CPU当前操作<br>   每个定时器都需要一个时钟才能工作，8051通过外部晶振提供它，这是Timer的主要时钟源。8051微控制器中的内部电路为定时器提供时钟源，该定时器是连接到微控制器的晶体频率的1&#x2F;12，也称为机器周期频率。<br>   8051定时器时钟<br>   例如，假设我们的晶振频率为11.0592 MHz，那么微控制器将提供1&#x2F;12即：<br>   定时器时钟频率&#x3D;（Xtal Osc.frequency）&#x2F; 12 &#x3D;（11.0592 MHz）&#x2F; 12 &#x3D; 921.6 KHz<br>   周期T &#x3D; 1 &#x2F;（921.6KHz）&#x3D;1.085μS<br>   方式0为13位的计数器，由TL0的低5位和TH0的8位组成，TL0的高3位未用，TL0低5位计数溢出时向TH0进位，TH0计数溢出时，向中断标志位TF0进位(硬件置位TF0)，并申请中断。T0是否溢出可查询TF0是否被置位，以产生T0中断。<br>   方式0定时，定时时间为：to&#x3D;(213- Xo) xTm&#x3D;(213-X0) x(12&#x2F; fosc)<br>   式中X0为计数初值，Tm为机器周期，fosc为 晶振频率。方式0计数时，最大计数值为2^13&#x3D;8192 (个外部脉冲)</p>
+<h2 id="80c51定时器工作模式"><a href="#80c51定时器工作模式" class="headerlink" title="80c51定时器工作模式"></a>80c51定时器工作模式</h2><p>   80c51系列单片机有2个16位的定时器&#x2F;计数器：定时器0（T0），定时器1（T1） 都有定时器或事件计数的功能<br>   T0由两个特殊功能寄存器TH0和TL0构成，T1则由TH1和TL1构成，均是16位加法计数结构<br>   作计数器时，通过引脚T0(P3.4)和T1(P3.5)对外部脉冲信号计数，当输入脉冲信号从1到0的负跳变时，计数器就自动加1，计数的最高频率一般为振荡频率的1&#x2F;24<br>   不论是定时或计数工作，定时器T0或T1都不占用CPU时间，除非定时器（计数器）溢出，才可能中断CPU当前操作<br>   每个定时器都需要一个时钟才能工作，8051通过外部晶振提供它，这是Timer的主要时钟源。8051微控制器中的内部电路为定时器提供时钟源，该定时器是连接到微控制器的晶体频率的1&#x2F;12，也称为机器周期频率。<br>   8051定时器时钟<br>   例如，假设我们的晶振频率为11.0592 MHz，那么微控制器将提供1&#x2F;12即：<br>   定时器时钟频率&#x3D;（Xtal Osc.frequency）&#x2F; 12 &#x3D;（11.0592 MHz）&#x2F; 12 &#x3D; 921.6 KHz<br>   周期T &#x3D; 1 &#x2F;（921.6KHz）&#x3D;1.085μS<br>   方式0为13位的计数器，由TL0的低5位和TH0的8位组成，TL0的高3位未用，TL0低5位计数溢出时向TH0进位，TH0计数溢出时，向中断标志位TF0进位(硬件置位TF0)，并申请中断。T0是否溢出可查询TF0是否被置位，以产生T0中断。<br>   方式0定时，定时时间为：to&#x3D;(213- Xo) xTm&#x3D;(213-X0) x(12&#x2F; fosc)<br>   式中X0为计数初值，Tm为机器周期，fosc为 晶振频率。方式0计数时，最大计数值为2^13&#x3D;8192 (个外部脉冲)   –end</p>
 </li>
 </ol>
 
